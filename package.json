@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "workertemplate",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -8,9 +8,7 @@
     "dev": "wrangler dev",
     "start": "wrangler dev"
   },
-  "dependencies": {
-    
-  },
+  "dependencies": {},
   "devDependencies": {
     "wrangler": "4.33.*"
   }
