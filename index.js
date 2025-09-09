@@ -1,12 +1,11 @@
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Authorization, Content-Type',
-}
-
 async function fetch(request) {
-  if (request.method === 'OPTIONS') return new Response(null, { headers: corsHeaders })
-  return new Response('OK', { headers: corsHeaders })
+  if (request.method === 'OPTIONS') {
+    const headers = new Headers()
+    headers.set('Access-Control-Allow-Origin', '*')
+    headers.set('Access-Control-Allow-Headers', 'Authorization, Content-Type')
+    return new Response(null, { headers })
+  }
+  return new Response('OK')
 }
 
 export default { fetch }
