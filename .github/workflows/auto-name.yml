@@ -1,11 +1,16 @@
-on:push
+on: push
 jobs:
   j:
-    runs-on:ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
-      - uses:actions/checkout@v4
+      - uses: actions/checkout@v4
       - run: |
           n=${GITHUB_REPOSITORY#*/};n=$(echo $n|tr A-Z a-z)
-          jq ".name=\"$n\"" package.json>p.json&&mv p.json package.json
+          jq ".name=\"$n\"" package.json>p.json && mv p.json package.json
           sed -i "s/^name *=.*$/name = \"$n\"/" wrangler.toml
-          git diff --quiet||{ git config user.email "a@a.a";git config user.name "a";git commit -am update;git push; }
+          git diff --quiet || {
+            git config user.email a@a.a
+            git config user.name a
+            git commit -am update
+            git push
+          }
