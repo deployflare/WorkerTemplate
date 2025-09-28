@@ -57,3 +57,11 @@ database_id = "45ee691d-3d0c-42f2-8e3a-35a369444a03"
 binding = "SUNE"
 database_name = "sune"
 database_id = "140c5f3d-c4d4-4cdf-b520-a23366172971"
+
+[[kv_namespaces]]
+binding="EV"
+id="6b401890e9b64511b4ffcee9e9f41306"
+
+[[kv_namespaces]]
+binding="MIE_NEWSLETTER"
+id="d0b45970d3c04397a6e0dc6ad30216e3"
