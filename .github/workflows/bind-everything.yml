@@ -1,0 +1,44 @@
+name: Sync D1 Bindings
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install -g wrangler
+
+      - name: Fetch Cloudflare Account ID & Sync Bindings
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          export CLOUDFLARE_ACCOUNT_ID=$(curl -sX GET "https://api.cloudflare.com/client/v4/accounts" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type:application/json" | jq -r '.result[0].id')
+          wrangler d1 list --json | jq -c '.[]' | while read -r db; do
+            id=$(jq -r .uuid <<< "$db")
+            if ! grep -q "$id" wrangler.toml; then
+              name=$(jq -r .name <<< "$db")
+              binding=$(echo "$name" | tr '[:lower:]-' '[:upper:]_')
+              printf '\n[[d1_databases]]\nbinding = "%s"\ndatabase_name = "%s"\ndatabase_id = "%s"\n' "$binding" "$name" "$id" >> wrangler.toml
+            fi
+          done
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: Sync D1 database bindings"
+          file_pattern: wrangler.toml
+
