@@ -42,26 +42,3 @@ compatibility_date = "2025-09-09"
 # [[migrations]]
 # tag = "v1"
 # new_classes = ["MyDurableObject"]
-
-[[d1_databases]]
-binding = "SUNE_PLATFORM_USERS"
-database_name = "sune_platform_users"
-database_id = "464b291c-90a5-4947-b96b-b1b5aeca1db3"
-
-[[d1_databases]]
-binding = "HI"
-database_name = "hi"
-database_id = "45ee691d-3d0c-42f2-8e3a-35a369444a03"
-
-[[d1_databases]]
-binding = "SUNE"
-database_name = "sune"
-database_id = "140c5f3d-c4d4-4cdf-b520-a23366172971"
-
-[[kv_namespaces]]
-binding="EV"
-id="6b401890e9b64511b4ffcee9e9f41306"
-
-[[kv_namespaces]]
-binding="MIE_NEWSLETTER"
-id="d0b45970d3c04397a6e0dc6ad30216e3"
